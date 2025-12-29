@@ -17,15 +17,15 @@ namespace E_Commerce.Web.Controllers
                 Id = id
             };
         }
-        //Get: baseUrl/api/Product/
-        [HttpGet]
-        public ActionResult<Product> GetAll()
-        {
-            return new Product()
-            {
-                Id = 100
-            };
-        }
+        ////Get: baseUrl/api/Product/
+        //[HttpGet]
+        //public ActionResult<Product> GetAll()
+        //{
+        //    return new Product()
+        //    {
+        //        Id = 100
+        //    };
+        //}
         //Post: baseUrl/api/Product
         [HttpPost]
         public ActionResult<Product> Add(Product product)
