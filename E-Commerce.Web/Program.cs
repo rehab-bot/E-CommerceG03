@@ -4,6 +4,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Writers;
 using Presistance;
 using Presistance.Data.Contexts;
+using Presistance.Repositories;
+using ServiceAbstraction;
+using Services;
+using Services.MappingProfiles;
 
 namespace E_Commerce.Web
 {
@@ -24,11 +28,14 @@ namespace E_Commerce.Web
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
                   });
             builder.Services.AddScoped<IDataSeeding, DataSeeding>();
+            builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
+            builder.Services.AddAutoMapper(config => config.AddProfile(new ProductProfile()),typeof(Services.AssemblyReference).Assembly);  
+            builder.Services.AddScoped<IServiceManager ,ServiceManager>();
             var app = builder.Build();
             var Scope = app.Services.CreateScope();
 
            var seed = Scope.ServiceProvider.GetRequiredService<IDataSeeding>();
-            seed.DataSeed();
+            seed.DataSeedAsync();
 
 
             // Configure the HTTP request pipeline.
@@ -40,7 +47,7 @@ namespace E_Commerce.Web
 
             app.UseHttpsRedirection();
 
-           
+            app.UseStaticFiles();
 
 
             app.MapControllers();
