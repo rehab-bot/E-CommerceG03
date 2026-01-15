@@ -16,12 +16,12 @@ namespace Presistance.Data.Configrations
         {
             builder.HasOne(p => p.ProductBrand)
                    .WithMany()
-                   .HasForeignKey(p => p.ProductBrandId);
+                   .HasForeignKey(p => p.BrandId);
           
 
             builder.HasOne(p => p.ProductType)
                    .WithMany()
-                   .HasForeignKey(p => p.ProductTypeId);
+                   .HasForeignKey(p => p.TypeId);
 
             builder.Property(p => p.Price)
                    .HasColumnType("decimal(10,2)");
